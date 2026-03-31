@@ -33,10 +33,15 @@ class User:
 class Learner(User):
     def __init__(self, name: str, id: int) -> None:
         super().__init__(name, id)
-        self.validated_skills = []
+        self._validated_skills = []
 
     def can_validate(self, skill_id: int) -> bool:
-        return skill_id in self.validated_skills
+        return skill_id in self._validated_skills
+
+    def add_skill(self, skill_id: int) -> None:
+        if skill_id in self._validated_skills:
+            raise ValueError(f'La compétences {skill_id} est déja validée !')
+        self._validated_skills.append(skill_id)
 
 class Trainer(User):
     def can_validate(self, skill_id: int) -> bool:
