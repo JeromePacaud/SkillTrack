@@ -1,3 +1,7 @@
+from dataclasses import dataclass
+import json
+
+
 class User:
     def __init__(self, name: str, id: int) -> None:
         self.name: str = name
@@ -6,11 +10,17 @@ class User:
     def can_validate(self, skill_id: int) -> bool:
         return False
 
+    def to_dict(self) -> dict:
+        return {
+            'id': self.id,
+            'name': self.name,
+        }
+
     def __str__(self) -> str:
         return f'Utilisateur : {self.id} | {self.name}'
 
     def __repr__(self) -> str:
-        return self.__str__()
+        return json.dumps(self.to_dict(), indent=4)
 
 
 class Learner(User):
@@ -25,6 +35,11 @@ class Learner(User):
         if skill_id in self._validated_skills:
             raise ValueError(f'La compétences {skill_id} est déja validée !')
         self._validated_skills.append(skill_id)
+
+    def to_dict(self) -> dict:
+        data = super().to_dict()
+        data['validated_skills'] = self._validated_skills
+        return data
 
     def __str__(self) -> str:
         return f'Apprenant : {self.id} | {self.name}'
@@ -49,6 +64,12 @@ class Classroom:
     def add_user(self, user: User) -> None:
         self._users.append(user)
 
+    def to_dict(self) -> dict:
+        return {
+            'name': self.name,
+            'users': [user.to_dict() for user in self._users],
+        }
+
     def __add__(self, other: Classroom) -> Classroom:
         merged_classroom = Classroom(
             f'{self.name} + {other.name} => P{int(self.name[1:]) + int(other.name[1:])}'
@@ -63,3 +84,6 @@ class Classroom:
 
     def __str__(self) -> str:
         return f'Promotion : {self.name} | {len(self._users)} users'
+
+    def __repr__(self) -> str:
+        return json.dumps(self.to_dict(), indent=4)
