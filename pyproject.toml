@@ -35,4 +35,4 @@ ignore_missing_imports = true
 [tool.pytest.ini_options]
 pythonpath = ["app"]
 testpaths = ["tests"]
-addopts = "--cov=app --cov-report=term-missing --cov-fail-under=80"
+addopts = "--cov=app --cov-report=term-missing --cov-fail-under=80 --cov-config=.coveragerc"
