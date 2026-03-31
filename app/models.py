@@ -29,3 +29,9 @@ class User:
             bool: Toujours False pour l'instant.
         """
         return False
+
+class Learner(User):
+    pass
+
+class Trainer(User):
+    pass
