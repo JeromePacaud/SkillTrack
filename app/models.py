@@ -31,7 +31,13 @@ class User:
         return False
 
 class Learner(User):
-    pass
+    def __init__(self, name: str, id: int) -> None:
+        super().__init__(name, id)
+        self.validated_skills = []
+
+    def can_validate(self, skill_id: int) -> bool:
+        return skill_id in self.validated_skills
 
 class Trainer(User):
-    pass
+    def can_validate(self, skill_id: int) -> bool:
+        return True
