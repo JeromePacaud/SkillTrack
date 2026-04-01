@@ -125,6 +125,7 @@ class Validation:
 
 	def to_dict(self) -> dict[str, object]:
 		return {
+			'type': self.__class__.__name__,
 			'id': self.id,
 			'learner_id': self.learner_id,
 			'skill_id': self.skill_id,
