@@ -6,11 +6,12 @@ readme = "README.md"
 requires-python = ">=3.14"
 dependencies = [
     "fastapi>=0.135.2",
+    "mypy>=1.19.1",
 ]
 
 [dependency-groups]
 dev = [
-    "mypy>=1.19.1",
+    "mypy>=1.20.0",
     "pytest>=9.0.2",
     "pytest-cov>=7.1.0",
     "ruff>=0.15.8",
@@ -31,6 +32,7 @@ indent-style="tab"
 python_version = "3.14"
 strict = true
 ignore_missing_imports = true
+exclude = "\\.venv|create|build|dist"
 
 [tool.pytest.ini_options]
 pythonpath = ["app"]
