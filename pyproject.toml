@@ -1,21 +1,25 @@
 [project]
-name = "skill-tracker"
+name = "TodoListAPI"
 version = "0.1.0"
-description = "Système de suivi de compétences"
+description = "Add your description here"
 readme = "README.md"
 requires-python = ">=3.14"
 dependencies = [
     "fastapi>=0.135.2",
-    "mypy>=1.19.1",
+    "httpx>=0.28.1",
+    "pydantic-core>=2.41.5",
+    "uvicorn>=0.42.0",
 ]
 
 [dependency-groups]
 dev = [
+    "httpx>=0.28.1",
     "mypy>=1.20.0",
     "pytest>=9.0.2",
     "pytest-cov>=7.1.0",
     "ruff>=0.15.8",
 ]
+
 
 [tool.ruff]
 line-length = 88
@@ -31,10 +35,18 @@ indent-style="tab"
 [tool.mypy]
 python_version = "3.14"
 strict = true
-ignore_missing_imports = true
 exclude = "\\.venv|create|build|dist"
+# Optionnel : inclure seulement le code source
+# files = "app"
+ignore_missing_imports = true
+warn_unused_configs = true
+explicit_package_bases = true
 
 [tool.pytest.ini_options]
-pythonpath = ["app"]
-testpaths = ["tests"]
+pythonpath = ["src"]
+testpaths = ["src/tests"]
 addopts = "--cov=app --cov-report=term-missing --cov-fail-under=80 --cov-config=.coveragerc"
+
+[tool.fastapi]
+entrypoint = "app.main:app"
+
